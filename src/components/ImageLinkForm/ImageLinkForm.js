@@ -14,7 +14,6 @@ const ImageLinkForm = ({onInputChange, OnSubmitDetectButton}) => {
                     onClick={OnSubmitDetectButton}
                     >Detect</button>
                 </div>
-
             </div>
         </div>
     );
