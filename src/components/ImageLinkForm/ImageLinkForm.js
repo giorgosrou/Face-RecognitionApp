@@ -9,7 +9,7 @@ const ImageLinkForm = ({onInputChange, OnSubmitDetectButton}) => {
             </p>  
             <p>{'To use the smart brain follow the below steps:'}</p>
             <ol>
-                <li><i>{'1.Find online the image e.g google.'}</i></li>
+                <li><i>{'1.Find online the image you would like to upload.'}</i></li>
                 <li><i>{'2.Press right click on the image.'}</i></li>
                 <li><i>{'3.Click on "Copy image Address".'}</i></li>
                 <li><i>{'4.Paste it and click the "Detect" button.'}</i></li>
