@@ -13,6 +13,7 @@ const ImageLinkForm = ({onInputChange, OnSubmitDetectButton}) => {
                 <li><i>{'2.Press right click on the image.'}</i></li>
                 <li><i>{'3.Click on "Copy image Address".'}</i></li>
                 <li><i>{'4.Paste it and click the "Detect" button.'}</i></li>
+                <li><i>{'Example image: https://staticg.sportskeeda.com/editor/2022/08/53e15-16596004347246.png?w=840'}</i></li>
             </ol>
             <div className="center">
                 <div className="form center pa4 br3 shadow-5">
