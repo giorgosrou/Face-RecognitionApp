@@ -87,6 +87,7 @@ class App extends Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.state.user.id,
+                faceCount: faceCount,
             })
           })
         .then(response => response.json())
