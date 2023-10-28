@@ -12,7 +12,7 @@ import Register from "./components/Register/Register";
 const initialState = {
   input: '',
   imageURL: '',
-  box: {},
+  boxes: [],
   route: 'signin',
   isSignedIn: false,
   user: {
@@ -40,20 +40,26 @@ class App extends Component {
     }})
   }
 
-  displayFaceBox = (box) => {
-    this.setState({box: box});
+  displayFaceBox = (boxes) => {
+    this.setState({boxes: boxes});
   }
-  
+
   calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputimage');
-    const width = Number(image.width);
-    const height = Number(image.height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
+    if (data && data.outputs && data.outputs[0].data && data.outputs[0].data.regions) {
+      return data.outputs[0].data.regions.map(region => {
+        const clarifaiFace = region.region_info.bounding_box;
+        const image = document.getElementById('inputimage');
+        const width = Number(image.width);
+        const height = Number(image.height);
+        return {
+          leftCol: clarifaiFace.left_col * width,
+          topRow: clarifaiFace.top_row * height,
+          rightCol: width - (clarifaiFace.right_col * width),
+          bottomRow: height - (clarifaiFace.bottom_row * height)
+        };
+      });
+    } else {
+      return [];
     }
   }
 
@@ -101,7 +107,7 @@ class App extends Component {
   }
 
   render () {
-    const { isSignedIn, imageURL, route, box } = this.state;
+    const { isSignedIn, imageURL, route, boxes } = this.state;
     return (
       <div className="App">
         <ParticlesBg type="cobweb" bg={true} />
@@ -118,7 +124,7 @@ class App extends Component {
               onInputChange = {this.onInputChange} 
               OnSubmitDetectButton = {this.OnSubmitDetectButton}
             />
-            <FaceRecognition imageURL = {imageURL} box = {box}/>
+            <FaceRecognition imageURL = {imageURL} boxes = {boxes}/>
           </div>
           :
           ( route === 'signin' 
