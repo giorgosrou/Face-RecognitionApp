@@ -8,7 +8,7 @@ const ImageLinkForm = ({onInputChange, OnSubmitDetectButton}) => {
                 {'This magic brain will detect faces in your pictures.'}
             </p>  
             <p>{'To use the smart brain follow the below steps:'}</p>
-            <div className="center">
+            <div>
             <ol style={{ listStyleType: 'decimal', paddingLeft: '20px' }}>
                 <li style={{ marginLeft: '1.5em' }}><i>{'Find the image you want to upload online.'}</i></li>
                 <li style={{ marginLeft: '1.5em' }}><i>{'Right-click on the image.'}</i></li>

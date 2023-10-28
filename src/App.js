@@ -76,22 +76,25 @@ class App extends Component {
         input: this.state.input
       })
     })
-    .then(response => response.json())
+    .then(response => response.json())  
     .then(response => {
-      console.log(response)
-      if (response) {
-        fetch('https://face-detection-backend-0tsv.onrender.com/image', {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-              id: this.state.user.id
+      if (response && response.outputs) {
+        const faceCount = response.outputs[0].data.regions.length; // Count of detected faces
+        if (faceCount > 0) {
+          // Update entries count only if faces are detected
+          fetch('https://face-detection-backend-0tsv.onrender.com/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.user.id
+            })
           })
-        })
         .then(response => response.json())
         .then(count => {
           this.setState(Object.assign(this.state.user, { entries: count}))
         })
       }
+    }
       this.displayFaceBox(this.calculateFaceLocation(response))
     })  
     .catch(error => console.log('error', error));
