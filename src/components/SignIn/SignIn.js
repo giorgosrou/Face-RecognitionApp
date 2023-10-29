@@ -6,19 +6,41 @@ class SignIn extends Component {
         super(props);
         this.state = {
             signInEmail: '',
-            signInPassword: ''
+            signInPassword: '',
+            emailError: '',
+            passwordError: ''
+        }
+    }
+
+    validateEmail = () => {
+        if (!this.state.signInEmail) {
+          this.setState({ emailError: 'Email is required' });
+        } else {
+          this.setState({ emailError: '' });
+        }
+    }
+      
+      validatePassword = () => {
+        if (!this.state.signInPassword) {
+          this.setState({ passwordError: 'Password is required' });
+        } else {
+          this.setState({ passwordError: '' });
         }
     }
 
     onEmailChange = (event) => {
         this.setState({signInEmail: event.target.value})
+        this.validateEmail();
     }
 
     onPasswordChange = (event) => {
         this.setState({signInPassword: event.target.value})
+        this.validatePassword();
     }
 
     onSubmitSignIn = () => {
+        this.validateEmail();
+        this.validatePassword();
         fetch('https://face-detection-backend-0tsv.onrender.com/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -32,6 +54,8 @@ class SignIn extends Component {
             if (user.id) {
                 this.props.loadUser(user)
                 this.props.onRouteChange('home');
+            } else {
+                alert('Wrong given credentials');
             }
         })
     }
@@ -54,6 +78,7 @@ class SignIn extends Component {
                                     id="email-address"
                                     onChange={this.onEmailChange}
                                     />
+                                    <p className="error">{this.state.emailError}</p>
                                 </div>
                                 <div className="mv3">
                                     <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -64,6 +89,7 @@ class SignIn extends Component {
                                     id="password"
                                     onChange={this.onPasswordChange}
                                     />
+                                    <p className="error">{this.state.passwordError}</p>
                                 </div>
                             </fieldset>
                             <div className="">

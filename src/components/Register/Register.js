@@ -8,23 +8,56 @@ class Register extends Component {
         this.state = {
             email: '',
             password: '',
-            name: ''
+            name: '',
+            emailError: '',
+            passwordError: '',
+            nameError: ''
         }
     }
 
+    validateEmail = () => {
+        if (!this.state.email) {
+            this.setState({ emailError: 'Email is required' });
+        } else {
+            this.setState({ emailError: '' });
+        }
+    };
+        
+        validatePassword = () => {
+        if (!this.state.password) {
+            this.setState({ passwordError: 'Password is required' });
+        } else {
+            this.setState({ passwordError: '' });
+        }
+    };
+        
+        validateName = () => {
+        if (!this.state.name) {
+            this.setState({ nameError: 'Name is required' });
+        } else {
+            this.setState({ nameError: '' });
+        }
+    };
+
     onNameChange = (event) => {
-        this.setState({name: event.target.value})
+        this.setState({name: event.target.value});
+        this.validateName();
     }
 
     onEmailChange = (event) => {
-        this.setState({email: event.target.value})
+        this.setState({email: event.target.value});
+        this.validateEmail();
     }
 
     onPasswordChange = (event) => {
-        this.setState({password: event.target.value})
+        this.setState({password: event.target.value});
+        this.validatePassword();
     }
 
     onSubmitSignIn = () => {
+        this.validateEmail();
+        this.validatePassword();
+        this.validateName();
         fetch('https://face-detection-backend-0tsv.onrender.com/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -59,6 +92,7 @@ class Register extends Component {
                                         name="name"  
                                         id="name"
                                         onChange = {this.onNameChange}/>
+                                        <p className="error">{this.state.nameError}</p>
                                 </div>
                                 <div 
                                     className="mt3">
@@ -69,6 +103,7 @@ class Register extends Component {
                                         name="email-address"  
                                         id="email-address"
                                         onChange = {this.onEmailChange}/>
+                                        <p className="error">{this.state.emailError}</p>
                                 </div>
                                 <div className="mv3">
                                     <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -78,6 +113,7 @@ class Register extends Component {
                                         name="password"  
                                         id="password"
                                         onChange = {this.onPasswordChange}/>
+                                        <p className="error">{this.state.passwordError}</p>
                                 </div>
                             </fieldset>
                             <div className="">
