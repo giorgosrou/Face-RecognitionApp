@@ -68,7 +68,11 @@ class App extends Component {
   }
 
   OnSubmitDetectButton = () => {
-    this.setState({ imageURL: this.state.input });  
+    // if (this.state.input.trim() === '') {
+    //   alert('Upload a picture to detect faces!')
+    //   return;
+    // }
+    this.setState({ imageURL: this.state.input }); 
     fetch('https://face-detection-backend-0tsv.onrender.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -95,11 +99,11 @@ class App extends Component {
         .then(count => {
           this.setState(Object.assign(this.state.user, { entries: count}))
         })
-    }
-    
+      }
     })  
     .catch(error => console.log('error', error));
-  }
+  } 
+    
 
   onRouteChange = (route) => {
     if (route==='signout') {

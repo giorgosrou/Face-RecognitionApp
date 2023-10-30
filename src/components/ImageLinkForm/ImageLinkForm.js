@@ -16,7 +16,7 @@ const ImageLinkForm = ({onInputChange, OnSubmitDetectButton}) => {
                 <li style={{ marginLeft: '1.5em' }}><i>{'Paste the copied URL and click the "Detect" button.'}</i></li>
             </ol>
             </div>
-            <p><i>{'Example image: https://staticg.sportskeeda.com/editor/2022/08/53e15-16596004347246.png?w=840'}</i></p>
+            <p><i>{'Example image: https://www.guitarnoise.com/images/features/pink-floyd-wallpaper.jpg'}</i></p>
             <div className="center">
                 <div className="form center pa4 br3 shadow-5">
                     <input className="f4 pa2  w-70 center" type="tex" onChange={onInputChange}/>
